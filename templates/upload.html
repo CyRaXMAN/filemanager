@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Upload file{% end %}
+{% block body %}
+    {% try %}
+        {{ response }}
+    {% except %}
+    {% end %}
+    <form action="upload" method="post" id="uploadForm" enctype="multipart/form-data">
+        <label for="uploadForm_file">Select file:</label> <input type="file" name="uploadFile" id="uploadForm_file">
+        <input type="submit" value="Upload file" name="uploadButton" id="uploadForm_button">
+    </form>
+{% end %}

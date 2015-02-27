@@ -1,0 +1,93 @@
+
+html
+{
+    margin:0;
+    padding:0;
+    color:#000;
+    background: #f4f4f4;
+}
+
+.wrapper
+{
+    margin: 0 auto;
+    padding-bottom: 60px;
+    border: 1px solid #ccc;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    bottom: 10px;
+    width: 98%;
+}
+
+.content
+{
+    display: block;
+    overflow-y: scroll;
+    width: 82%;
+    height: 90%;
+}
+
+.file_info
+{
+    display: block;
+    float: right;
+    width: 16%;
+    padding-left: 5px;
+}
+
+.content ul
+{
+    padding: 0px;
+    margin: 0px;
+    color: #383a41;
+}
+
+.selected
+{
+    font-weight: bold;
+}
+
+.menu
+{
+    display: block;
+    background: #efefef;
+	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);
+	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%);
+	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%);
+	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+}
+
+.header
+{
+    background: #efefef;
+    padding-bottom: 1px;
+    border: 1px solid #ccc;
+}
+
+
+#files li
+{
+    word-wrap: break-word;
+    overflow: auto;
+}
+
+#files li:hover
+{
+    color: #2a2a2a;
+    background: #d9d9d9;
+}
+
+#buttons li
+{
+    display: inline-block;
+    text-align: center;
+    list-style-type: none;
+    font-size: 12px;
+    margin: 4px;
+}
+
+#button_exit
+{
+    float: right;
+}
+
