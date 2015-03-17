@@ -1,19 +1,19 @@
 # Simple File Manager
 
-File manager based on [Torando Web Framework](www.tornadoweb.org).
+File manager based on [Torando Web Framework](http://www.tornadoweb.org).
 
 ## Requirements
 
 Server side
-- [tornadoweb](github.com/tornadoweb/tornado) 
-- [python-magic](github.com/ahupp/python-magic) for file type identification
+- [tornadoweb](http://github.com/tornadoweb/tornado) 
+- [python-magic](ghttp://ithub.com/ahupp/python-magic) for file type identification
 
 Also requires
-- [jQuery](github.com/jquery/jquery)
-- [jQuery UI](github.com/jquery/jquery-ui)
+- [jQuery](http://github.com/jquery/jquery)
+- [jQuery UI](http://github.com/jquery/jquery-ui)
 - Websockets
 
-Icons [Faenza Icon Theme](code.google.com/p/faenza-icon-theme/) (already in */static/img/*)
+Icons [Faenza Icon Theme](http://code.google.com/p/faenza-icon-theme/) (already in */static/img/*)
 
 ## Usage
 
