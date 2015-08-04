@@ -6,7 +6,7 @@ File manager based on [Torando Web Framework](http://www.tornadoweb.org).
 
 Server side
 - [tornadoweb](http://github.com/tornadoweb/tornado) 
-- [python-magic](ghttp://ithub.com/ahupp/python-magic) for file type identification
+- [python-magic](http://github.com/ahupp/python-magic) for file type identification
 
 Also requires
 - [jQuery](http://github.com/jquery/jquery)
