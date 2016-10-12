@@ -65,13 +65,13 @@ class BatchActions(object):
                                 continue
                 else:
                     try:
-                        os.chmod(f)
+                        os.chmod(f, mode)
                         successful_chmod += 1
                     except OSError:
                         pass
             else:
                 try:
-                    os.chmod(f)
+                    os.chmod(f, mode)
                     successful_chmod += 1
                 except OSError:
                     pass
@@ -89,23 +89,31 @@ class DirectoryModel(object):
         self.current_dir = current_dir
 
     def create(self, name):
-        """Create new directory in current_dir"""
+        """
+        Create new directory in current_dir
+        :param name: directory name
+        :return:
+        """
         path = os.path.join(self.current_dir, name)
         if os.path.exists(path):
             raise IOError('Directory already exists')
-
         os.mkdir(path)
-
         return True
 
     def remove(self, name):
-        """Remove directory in current_dir"""
+        """
+        Remove directory in current_dir
+        :param name: directory name
+        :return:
+        """
         os.rmdir(os.path.join(self.current_dir, name))
-
         return True
 
     def list_files(self):
-        """Return list of files from current_dir"""
+        """
+        Return list of files from current_dir
+        :return:
+        """
         files = os.listdir(self.current_dir)
         result = []
         if not files:
@@ -119,7 +127,10 @@ class DirectoryModel(object):
         return result
 
     def get_size(self):
-        """Get current_dir contents size."""
+        """
+        Get current_dir contents size
+        :return:
+        """
         dir_size = 0
         for path, dirs, files in os.walk(self.current_dir):
             for f in files:
@@ -128,7 +139,12 @@ class DirectoryModel(object):
         return dir_size
 
     def chmod_dir(self, mode, recursive=False):
-        """Change current_dir permissions. Can be recursive."""
+        """
+        Change current_dir permissions
+        :param mode: directory mode
+        :param recursive: recursive change
+        :return:
+        """
         successful_chmod = 0
         if recursive:
             for path, dirs, files in os.walk(self.current_dir):
@@ -139,14 +155,15 @@ class DirectoryModel(object):
                     os.chmod(os.path.join(path, f), mode)
                     successful_chmod += 1
         else:
-            os.chmod(self.current_dir)
+            os.chmod(self.current_dir, mode=mode)
             successful_chmod += 1
 
         return successful_chmod
 
 
 class FileModel(object):
-    """File model
+    """
+    File model
     Attributes:
         current_dir: current working directory.
     """
@@ -155,27 +172,42 @@ class FileModel(object):
         self.current_dir = current_dir
 
     def create(self, name):
-        """Create new file in current_dir. May raise IOError if file exists"""
+        """
+        Create new file in current_dir. May raise IOError if file exists
+        :param name:
+        :return:
+        """
         file_path = os.path.join(self.current_dir, name)
         if os.path.exists(file_path):
             raise IOError('File already exists')
         open(file_path, 'a').close()
-
         return True
 
     def remove(self, name):
-        """Remove file from current_dir"""
+        """
+        Remove file from current_dir
+        :param name:
+        :return:
+        """
         os.remove(os.path.join(self.current_dir, name))
-
         return True
 
     def info(self, name):
-        """Get file info from current_dir. Returns list."""
-        stat_data = os.stat(os.path.join(self.current_dir, name))
-        try:
-            mime_type = magic.from_file(os.path.join(self.current_dir, name), mime=True).decode()
-        except magic.MagicException:
-            mime_type = 'application/octet-stream'
+        """
+        Get file info from current_dir. Returns list
+        :param name:
+        :return:
+        """
+        target_inode = os.path.join(self.current_dir, name)
+        stat_data = os.stat(target_inode)
+        if not os.path.isdir(target_inode):
+            try:
+
+                mime_type = magic.from_file(target_inode, mime=True)
+            except magic.MagicException:
+                mime_type = 'application/octet-stream'
+        else:
+            mime_type = 'inode/directory'
         file_info = {
             'name': name,
             'path': self.current_dir,
@@ -189,15 +221,20 @@ class FileModel(object):
             'group_name': getgrgid(stat_data.st_gid).gr_name,
         }
         if mime_type == 'inode/symlink':
-            file_info['real_path'] = os.path.realpath(os.path.join(self.current_dir, name))
-            file_info['real_mime'] = magic.from_file(file_info['real_path'], mime=True).decode()
+            file_info['real_path'] = os.path.realpath(target_inode)
+            file_info['real_mime'] = magic.from_file(
+                file_info['real_path'], mime=True
+            ).decode()
             file_info['real_type'] = file_info['real_mime'].replace('/', '-')
-
         return file_info
 
     def chmod_file(self, name, mode):
-        """Change file permissions"""
+        """
+        Change file permissions
+        :param name:
+        :param mode:
+        :return:
+        """
         os.chmod(os.path.join(self.current_dir, name), mode)
-
         return True
 
