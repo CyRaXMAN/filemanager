@@ -1,4 +1,4 @@
-PYTHON="python"
+PYTHON="python3"
 EXECUTABLE="main.py"
 SERVER_IP="0.0.0.0"
 SERVER_PORT="8000"

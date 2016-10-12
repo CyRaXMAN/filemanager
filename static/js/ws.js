@@ -1,7 +1,7 @@
 /**
  * Websocket client
  */
-ws = new WebSocket("ws://localhost:8000/ws");
+ws = new WebSocket("ws://127.0.0.1:8080/ws");
 
 ws.onopen = function()
 {
@@ -93,7 +93,7 @@ function actionApplyOrder(order)
     file_data.sort(function(a, b) {
         if (order == 'name') {
             //var sort = $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase());
-            var sort = $(a).data('name').toUpperCase().localeCompare($(b).data('name').toUpperCase());
+            var sort = $(a).data('name').toString().toUpperCase().localeCompare($(b).data('name').toString().toUpperCase());
         } else if (order == 'size') {
             var sort = $(a).data('size') < $(b).data('size');
         }
